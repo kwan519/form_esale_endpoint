@@ -1,0 +1,11 @@
+Options -Indexes
+ErrorDocument 403 /oops.php
+ErrorDocument 404 /oops.php
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://form.esales-hub.com/$1 [R,L]
+
+RedirectMatch 404 ^/\.git
+RedirectMatch 404 ^/composer\.(json|lock|phar)$
+RewriteRule ^vendor/(.*)?$ / [F,L]
