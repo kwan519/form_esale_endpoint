@@ -146,10 +146,10 @@ if($out != '') {
 
             // Step1 : Save images to S3 Bucket
             $saveImages = $storeS3Bucket->uploadImages($out->images, $out->site_id);
-
+            $image_urls = implode(",",$saveImages);
             // Step2 : Add Data to Database localhost
             // $get_last_row_id_did_it_store == false :: store data to database not success
-            $get_last_row_id_did_it_store = $storeDomains->insertDataToDB($out->fran_label,$out->yourname,$out->telephonenumber,$out->emailinput,$out->postcode,$out->textareahere,$out->ip, $out->cid,$out->Location,$out->site_id,$out->lang_id,$out->order_number);
+            $get_last_row_id_did_it_store = $storeDomains->insertDataToDB($out->fran_label,$out->yourname,$out->telephonenumber,$out->emailinput,$out->postcode,$out->textareahere,$out->ip, $out->cid,$out->Location,$out->site_id,$out->lang_id,$out->order_number,  $image_urls);
             
 
             // Step3 : Send out email

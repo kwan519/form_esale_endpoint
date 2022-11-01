@@ -37,7 +37,7 @@ class storeDomains
         }
     }
 
-    public function insertDataToDB($fran_label,$yourname, $telephone, $email, $postcode, $textarea, $email_ip, $campaign_id, $location, $site_id, $lang_id, $order_number) {
+    public function insertDataToDB($fran_label,$yourname, $telephone, $email, $postcode, $textarea, $email_ip, $campaign_id, $location, $site_id, $lang_id, $order_number, $image_urls) {
         $to_encode = json_encode($textarea);
 
         if($fran_label == '') {
@@ -45,7 +45,7 @@ class storeDomains
         }
 
         try {
-            $stmt_insert = $this->ndb->prepare("INSERT INTO tbl_email_inser_da(fran_label,yourname,telephone,emailaddress,postcode,textarea,email_ip,campaign_id,location, site_id, lang_id, order_number) VALUES(:fran_label,:yourname,:telephone,:emailaddress,:postcode,:textarea, :email_ip, :campaign_id, :location, :site_id, :lang_id, :order_number)
+            $stmt_insert = $this->ndb->prepare("INSERT INTO tbl_email_inser_da(fran_label,yourname,telephone,emailaddress,postcode,textarea,email_ip,campaign_id,location, site_id, lang_id, order_number, image_urls) VALUES(:fran_label,:yourname,:telephone,:emailaddress,:postcode,:textarea, :email_ip, :campaign_id, :location, :site_id, :lang_id, :order_number, :image_urls)
 ");
 
             $stmt_insert->bindparam(":fran_label", $fran_label);
@@ -60,6 +60,7 @@ class storeDomains
             $stmt_insert->bindparam(":site_id", $site_id);
             $stmt_insert->bindparam(":lang_id", $lang_id);
             $stmt_insert->bindparam(":order_number", $order_number);
+            $stmt_insert->bindparam(":image_urls", $image_urls);
             $stmt_insert->execute();
             $id = $this->ndb->lastInsertId();
             return $id;
