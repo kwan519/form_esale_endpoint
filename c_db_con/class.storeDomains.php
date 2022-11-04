@@ -65,7 +65,7 @@ class storeDomains
             $id = $this->ndb->lastInsertId();
             return $id;
         } catch (PDOException $e) {
-//            echo $e->getMessage();                                                                               
+           echo $e->getMessage();                                                                               
             return false;
         }
     }

@@ -19,9 +19,8 @@ if($message == '') {
 
 $out = $message;
 
-//$out = json_decode($meh);
 
-//var_dump($out);
+//$out = json_decode($meh);
 
 
 function _e($string) {
@@ -55,6 +54,9 @@ unset($to_store_together['lang_id']);
 unset($to_store_together['order_number']);
 unset($to_store_together['Location']);
 unset($to_store_together['recaptcha_response']);
+unset($to_store_together['image_urls']);
+if(array_key_exists("undefined",$to_store_together))  
+unset($to_store_together['undefined']);
 
 $final_to_store = array();
 
@@ -142,17 +144,13 @@ if($out->site_id == 130){
 
 if($out != '') {
     if($out->origin_url != '' && $out->cid != '') {
+        
         if($storeDomains->checkAgainstDB($out->origin_url, $out->cid) == 1) {
-
-            // Step1 : Save images to S3 Bucket
-            $saveImages = $storeS3Bucket->uploadImages($out->images, $out->site_id);
-            $image_urls = implode(",",$saveImages);
-            // Step2 : Add Data to Database localhost
+        
             // $get_last_row_id_did_it_store == false :: store data to database not success
-            $get_last_row_id_did_it_store = $storeDomains->insertDataToDB($out->fran_label,$out->yourname,$out->telephonenumber,$out->emailinput,$out->postcode,$out->textareahere,$out->ip, $out->cid,$out->Location,$out->site_id,$out->lang_id,$out->order_number,  $image_urls);
-            
+            $get_last_row_id_did_it_store = $storeDomains->insertDataToDB($out->fran_label,$out->yourname,$out->telephonenumber,$out->emailinput,$out->postcode,$out->textareahere,$out->ip, $out->cid,$out->Location,$out->site_id,$out->lang_id,$out->order_number,  $out->image_urls);
 
-            // Step3 : Send out email
+            // Send out email
             if(in_array($out->cid, [82769, 46038])){
 
                 switch($out->typeoflead){

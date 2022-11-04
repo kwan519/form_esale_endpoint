@@ -2,3 +2,4 @@ c_db_con/a_db_config.php
 c_db_con/alp_db_config.php
 c_db_con/c_db_config.php
 error_log
+vendor
