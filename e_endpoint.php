@@ -8,7 +8,7 @@ include_once 'c_db_con/a_db_config.php';
 $message = json_decode(file_get_contents('php://input'));
 
 if($message == '') {
-    die();
+    die('No input data');
 }
 ////
 //$request = file_get_contents('php://input');
